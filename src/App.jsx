@@ -1,3 +1,6 @@
+import { MdOutlineSearch } from "react-icons/md";
+import Badge from "./components/badge";
+
 function App() {
   return (
     <div className="bg-red-200 h-screen flex justify-center items-center">
@@ -31,21 +34,20 @@ function App() {
           </div>
         </div>
 
-        <div className="flex justify-between bg-green-200 text-sm py-2 px-2">
+        <div className="flex justify-between bg-green-100 text-sm py-2 px-2">
           {/* Footer:  */}
 
           {/* Search Icon | Number of items left | Filter(All, Active, Completed) */}
-          <div className="flex gap-2">
-            <div>
-              <button>All</button>
-            </div>
-            <p>3 Items left</p>
+          <div className="flex gap-2 items-center">
+            <MdOutlineSearch />
+            <div className="h-full w-[1px] bg-gray-400" />
+            <p className="text-xs">3 Items left</p>
           </div>
 
-          <div>
-            <button>All</button>
-            <button>Active</button>
-            <button>Completed</button>
+          <div className="flex gap-2 text-xs">
+            <Badge isActive={true}>All</Badge>
+            <Badge>Active</Badge>
+            <Badge>Completed</Badge>
           </div>
         </div>
       </div>
