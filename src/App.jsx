@@ -1,37 +1,44 @@
-import { MdOutlineSearch } from "react-icons/md";
+import { MdAdd, MdOutlineCancel, MdOutlineSearch } from "react-icons/md";
 import Badge from "./components/badge";
+import { useState } from "react";
+import TodoList from "./components/todo-list";
 
 function App() {
+  const [todoItems, setTodoItems] = useState([]);
+  const [todoInput, setTodoInput] = useState("");
+
+  const addItemToList = (todoItem) => {
+    const newTodoItems = [...todoItems, todoItem];
+    setTodoItems(newTodoItems);
+  };
+
+  const handleSubmission = (event) => {
+    event.preventDefault();
+
+    addItemToList(todoInput);
+    setTodoInput("");
+  };
+
   return (
     <div className="bg-red-200 h-screen flex justify-center items-center">
-      <div className="border-red-100 h-max bg-white w-full max-w-[400px]">
+      <div className="border-red-100 h-80 bg-white w-full max-w-[400px] flex flex-col">
         <h1 className="text-center my-2 uppercase font-bold text-gray-600">
-          Things To Do
+          Things To Do by {name}
         </h1>
 
-        <div className="px-4 py-4">
+        <div className="px-4 py-4 grow overflow-auto">
           {/* Input */}
-          <input
-            type="text"
-            placeholder="Add New Item"
-            className="rounded-none border-[1px] border-solid w-full px-3 py-2 text-xs focus:rounded-none focus:outline-none focus:border-blue-300"
-          />
-
-          {/* Todo List with checkbox */}
-          <div className="flex  gap-2 py-2 border-b-[0.5px]">
-            <input type="checkbox" />
-            <p className="text-gray-600 text-sm">Learn Javascript</p>
-          </div>
-
-          <div className="flex  gap-2 py-2 border-b-[0.5px]">
-            <input type="checkbox" />
-            <p className="text-gray-600 text-sm">Learn React</p>
-          </div>
-
-          <div className="flex  gap-2 py-2 border-b-[0.5px]">
-            <input type="checkbox" />
-            <p className="text-gray-600 text-sm">Learn NodeJs</p>
-          </div>
+          <form onSubmit={handleSubmission}>
+            <input
+              type="text"
+              placeholder="Add New Item"
+              className="rounded-none border-[1px] border-solid w-full px-3 py-2 text-xs focus:rounded-none focus:outline-none focus:border-blue-300"
+              value={todoInput}
+              onChange={(e) => setTodoInput(e.target.value)}
+            />
+          </form>
+          {/*  */}
+          <TodoList todoItems={todoItems} />
         </div>
 
         <div className="flex justify-between bg-green-100 text-sm py-2 px-2">
