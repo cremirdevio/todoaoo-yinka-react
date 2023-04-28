@@ -1,29 +1,34 @@
 import { MdAdd, MdOutlineCancel, MdOutlineSearch } from "react-icons/md";
 import Badge from "./components/badge";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TodoList from "./components/todo-list";
+import Todo from "./services/Todo";
+
+const myTodo = new Todo();
 
 function App() {
   const [todoItems, setTodoItems] = useState([]);
   const [todoInput, setTodoInput] = useState("");
 
-  const addItemToList = (todoItem) => {
-    const newTodoItems = [...todoItems, todoItem];
-    setTodoItems(newTodoItems);
-  };
-
   const handleSubmission = (event) => {
     event.preventDefault();
 
-    addItemToList(todoInput);
+    myTodo.addItemToList(todoInput);
+
     setTodoInput("");
   };
+
+  useEffect(() => {
+    const todoItems = myTodo.getTodoList();
+
+    setTodoItems(todoItems);
+  }, []);
 
   return (
     <div className="bg-red-200 h-screen flex justify-center items-center">
       <div className="border-red-100 h-80 bg-white w-full max-w-[400px] flex flex-col">
         <h1 className="text-center my-2 uppercase font-bold text-gray-600">
-          Things To Do by {name}
+          Things To Do
         </h1>
 
         <div className="px-4 py-4 grow overflow-auto">
