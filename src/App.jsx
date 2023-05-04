@@ -1,4 +1,4 @@
-import { MdAdd, MdOutlineCancel, MdOutlineSearch } from "react-icons/md";
+import { MdOutlineSearch } from "react-icons/md";
 import Badge from "./components/badge";
 import { useEffect, useState } from "react";
 import TodoList from "./components/todo-list";
@@ -14,9 +14,22 @@ function App() {
     event.preventDefault();
 
     myTodo.addItemToList(todoInput);
-
     setTodoInput("");
+
+    fetchTodos()
   };
+
+  const handleToggleStatus = (id) => {
+    myTodo.toggleTodoStatus(id)
+
+
+    fetchTodos()
+  }
+
+  const fetchTodos = () => {
+    const todoItems = myTodo.getTodoList();
+    setTodoItems([...todoItems]);
+  }
 
   useEffect(() => {
     const todoItems = myTodo.getTodoList();
@@ -43,7 +56,7 @@ function App() {
             />
           </form>
           {/*  */}
-          <TodoList todoItems={todoItems} />
+          <TodoList onToggleStatus={handleToggleStatus} todoItems={todoItems} />
         </div>
 
         <div className="flex justify-between bg-green-100 text-sm py-2 px-2">

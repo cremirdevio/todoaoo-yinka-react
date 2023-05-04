@@ -1,6 +1,7 @@
 import { MdAdd, MdOutlineCancel } from "react-icons/md";
 
-export default function TodoList({ todoItems }) {
+export default function TodoList({ todoItems, onToggleStatus }) {
+
   if (todoItems.length == 0) {
     return (
       <div className="py-3 flex justify-center items-center flex-col gap-2 text-gray-500">
@@ -17,8 +18,8 @@ export default function TodoList({ todoItems }) {
     <>
       {todoItems.map((todoItem, index) => (
         <div key={index} className="flex  gap-2 py-2 border-b-[0.5px]">
-          <input type="checkbox" />
-          <p className="text-gray-600 text-sm">{todoItem.title}</p>
+          <input type="checkbox" onChange={() => onToggleStatus(todoItem.id)} />
+          <p className={`text-gray-600 text-sm ${todoItem.isCompleted && 'line-through'}`}>{todoItem.title}</p>
         </div>
       ))}
     </>
